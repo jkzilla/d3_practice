@@ -1,5 +1,7 @@
 module.exports.graphThis = function () {
 
+var d3 = require("d3");
+
 var width = 960,
     height = 500;
 

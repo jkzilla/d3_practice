@@ -1,14 +1,14 @@
 var http = require('http');
 var fs = require('fs');
 var path = require('path');
-// const graphJS = require('./forcedGraph').graphThis();
+var graphJS = require('./forcedGraph').graphThis();
 var miserables = require('./data/miserables.json');
 
 var server = http.createServer( function(request, response) {
   response.writeHead(200, {'Content-Type': 'text/html'});
   console.log(miserables);
-  console.log(html);
-  var filename = req.url || "forced_graph_les_miserables.html";
+
+  var filename = "/forced_graph_les_miserables.html";
   console.log(filename);
   var ext = path.extname(filename);
   console.log(filename);
@@ -27,21 +27,21 @@ var server = http.createServer( function(request, response) {
 	if (isValidExt) {
 		
 		localPath += filename;
-		path.exists(localPath, function(exists) {
+		fs.exists(localPath, function(exists) {
 			if(exists) {
 				console.log("Serving file: " + localPath);
-				getFile(localPath, res, ext);
+				getFile(localPath, response, ext);
 			} else {
 				console.log("File not found: " + localPath);
-				res.writeHead(404);
-				res.end();
+				response.writeHead(404);
+				response.end();
 			}
 		});
 
 	} else {
 		console.log("Invalid file extension detected: " + ext);
 	}
-  response.end(html, 'binary');
+  response.end(filename, miserables, graphJS);
 }).listen(1337, "localhost", function () {
 	var address = server.address();
 	var host = server.address().address;
