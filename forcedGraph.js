@@ -1,6 +1,7 @@
 module.exports.graphThis = function () {
 
-var d3 = require("d3");
+var d3 = require("d3"); 
+var jsdom = require("jsdom"); 
 
 var width = 960,
     height = 500;
@@ -16,7 +17,7 @@ var svg = d3.select("body").append("svg")
     .attr("width", width)
     .attr("height", height);
 
-d3.json("/data/miserables.json", function(error, graph) {
+d3.json("./data/miserables.json", function(error, graph) {
   if (error) throw error;
 
   force
@@ -49,6 +50,6 @@ d3.json("/data/miserables.json", function(error, graph) {
 
     node.attr("cx", function(d) { return d.x; })
         .attr("cy", function(d) { return d.y; });
-  });
+    });
 });
 };
